@@ -38,7 +38,7 @@ char	*get_next_line(int fd)
 		}
 		extract_line(buffer, &line);
 		reset_buffer(buffer);
-		if (!line || line[line_len(line)] == '\n')
+		if (line && line[line_len(line)] == '\n')
 			return (line);
 	}
 }
@@ -114,7 +114,7 @@ char	*get_next_line(int fd)
 	close(fd);
 	printf("\n");
 
-	printf("TEST 7: fd == -1\n");
+	printf("TEST 7: invalid fd\n");
 	while ((line = get_next_line(-1)))
 	{
 		printf("%s", line);

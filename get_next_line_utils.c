@@ -25,6 +25,8 @@ size_t	line_len(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] && s[i] != '\n')
 		i++;
@@ -81,8 +83,7 @@ void	extract_line(const char *buffer, char **line)
 	new_line = malloc(old_len + add_len + 1);
 	if (!new_line)
 	{
-		if (*line)
-			clear_line(line);
+		clear_line(line);
 		return ;
 	}
 	if (*line)
