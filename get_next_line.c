@@ -18,7 +18,7 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
-	ssize_t		bytes_read;
+	ssize_t		read_bytes;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -27,14 +27,14 @@ char	*get_next_line(int fd)
 	{
 		if (!buffer[0])
 		{
-			bytes_read = read(fd, buffer, BUFFER_SIZE);
-			if (bytes_read <= 0)
+			read_bytes = read(fd, buffer, BUFFER_SIZE);
+			if (read_bytes <= 0)
 			{
-				if (bytes_read < 0)
+				if (read_bytes < 0)
 					clear_line(&line);
 				return (line);
 			}
-			buffer[bytes_read] = '\0';
+			buffer[read_bytes] = '\0';
 		}
 		extract_line(buffer, &line);
 		reset_buffer(buffer);
