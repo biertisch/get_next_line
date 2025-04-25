@@ -16,8 +16,8 @@
 
 char	*read_file(int fd, char *buffer)
 {
-	char			*line;
-	ssize_t			bytes_read;
+	char		*line;
+	ssize_t		bytes_read;
 
 	line = NULL;
 	while (1)
@@ -42,7 +42,7 @@ char	*read_file(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer[FOPEN_MAX];
+	static char	*buffer[FOPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
