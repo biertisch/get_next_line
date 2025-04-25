@@ -51,18 +51,11 @@ void	clear_line(char **line)
 void	reset_buffer(char *buffer)
 {
 	size_t	line_len;
-	size_t	i;
 
-	i = 0;
 	line_len = 0;
 	while (buffer[line_len] && buffer[line_len - 1] != '\n')
 		line_len++;
-	while (buffer[line_len + i])
-	{
-		buffer[i] = buffer[line_len + i];
-		i++;
-	}
-	buffer[i] = '\0';
+	ft_strlcpy(buffer, buffer + line_len, ft_strlen(buffer + line_len) + 1);
 }
 
 void	extract_line(const char *buffer, char **line)
