@@ -18,7 +18,7 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
-	ssize_t		read_bytes;
+	ssize_t		bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -27,100 +27,72 @@ char	*get_next_line(int fd)
 	{
 		if (!buffer[0])
 		{
-			read_bytes = read(fd, buffer, BUFFER_SIZE);
-			if (read_bytes <= 0)
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			if (bytes_read <= 0)
 			{
-				if (read_bytes < 0)
+				if (bytes_read < 0)
 					clear_line(&line);
 				return (line);
 			}
-			buffer[read_bytes] = '\0';
+			buffer[bytes_read] = '\0';
 		}
 		extract_line(buffer, &line);
 		reset_buffer(buffer);
-		if (line && line[line_len(line)] == '\n')
+		if (line && line[ft_strlen(line) - 1] == '\n')
 			return (line);
 	}
 }
 
-/*int	main(void)
+/*void	run_test(char *file_name)
 {
 	char	*line;
 	int		fd;
-
-	printf("TEST 0: .txt with 4 short lines, all terminating with \\n\n");
-	fd = open("data/test0.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	printf("\n");
 	
-	printf("TEST 1: .txt with 2 short lines, the last one without \\n\n");
-	fd = open("data/test1.txt", O_RDONLY);
+	fd = open(file_name, O_RDONLY);
 	while ((line = get_next_line(fd)))
 	{
 		printf("%s", line);
 		free(line);
 	}
 	close(fd);
-	printf("\n");
+}
 
-	printf("TEST 2: .txt with 2 long lines, both terminating with \\n\n");
-	fd = open("data/test2.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	printf("\n");
+int	main(void)
+{
+	char	*line;
+	
+	printf("TEST 0: .txt 4 short lines \\n-terminated\n");
+	run_test("data/test0.txt");
+	
+	printf("\nTEST 1: .txt 2 lines not \\n-terminated\n");
+	run_test("data/test1.txt");
 
-	printf("TEST 3: empty .txt\n");
-	fd = open("data/test3.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	printf("\n");
+	printf("\nTEST 2: .txt 1 very long line\n");
+	run_test("data/test2.txt");
 
-	printf("TEST 4: standard input\n");
+	printf("\nTEST 3: .txt empty\n");
+	run_test("data/test3.txt");
+
+	printf("\nTEST 4: .txt multiple lines, lengths, chars and \\n\n");
+	run_test("data/test4.txt");
+
+	printf("\nTEST 5: .c file\n");
+	run_test("data/test5.c");
+
+	printf("\nTEST 6: standard input\n");
 	line = get_next_line(0);
 	printf("%s", line);
 	free(line);
-	printf("\n");
 
-	printf("TEST 5: .c with 6 lines\n");
-	fd = open("data/test5.c", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	printf("\n");
+	printf("\nTEST 7: directory\n");
+	run_test("data");
 
-	printf("TEST 6: directory\n");
-	fd = open("data", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	printf("\n");
-
-	printf("TEST 7: invalid fd\n");
+	printf("\nTEST 8: invalid fd\n");
 	while ((line = get_next_line(-1)))
 	{
 		printf("%s", line);
 		free(line);
 	}
-	printf("\n");
 }*/
 
 /*TEST

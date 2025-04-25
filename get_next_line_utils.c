@@ -12,23 +12,12 @@
 
 #include "get_next_line.h"
 
-void	clear_line(char **line)
-{
-	if (*line)
-	{
-		free(*line);
-		*line = NULL;
-	}
-}
-
-size_t	line_len(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i] && s[i] != '\n')
+	while (s[i])
 		i++;
 	return (i);
 }
@@ -47,21 +36,30 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		}
 		dst[i] = '\0';
 	}
-	return (i);
+	return (ft_strlen(src));
+}
+
+void	clear_line(char **line)
+{
+	if (*line)
+	{
+		free(*line);
+		*line = NULL;
+	}
 }
 
 void	reset_buffer(char *buffer)
 {
-	size_t	buffer_len;
+	size_t	line_len;
 	size_t	i;
 
-	buffer_len = line_len(buffer);
 	i = 0;
-	if (buffer[buffer_len] == '\n')
-		buffer_len++;
-	while (buffer[buffer_len + i])
+	line_len = 0;
+	while (buffer[line_len] && buffer[line_len - 1] != '\n')
+		line_len++;
+	while (buffer[line_len + i])
 	{
-		buffer[i] = buffer[buffer_len + i];
+		buffer[i] = buffer[line_len + i];
 		i++;
 	}
 	buffer[i] = '\0';
@@ -74,11 +72,11 @@ void	extract_line(const char *buffer, char **line)
 	size_t	add_len;
 
 	if (*line)
-		old_len = line_len(*line);
+		old_len = ft_strlen(*line);
 	else
 		old_len = 0;
-	add_len = line_len(buffer);
-	if (buffer[add_len] == '\n')
+	add_len = 0;
+	while (buffer[add_len] && buffer[add_len - 1] != '\n')
 		add_len++;
 	new_line = malloc(old_len + add_len + 1);
 	if (!new_line)
@@ -87,10 +85,8 @@ void	extract_line(const char *buffer, char **line)
 		return ;
 	}
 	if (*line)
-	{
 		ft_strlcpy(new_line, *line, old_len + 1);
-		clear_line(line);
-	}
 	ft_strlcpy(new_line + old_len, buffer, add_len + 1);
+	clear_line(line);
 	*line = new_line;
 }

@@ -24,8 +24,8 @@
 char	*get_next_line(int fd);
 void	extract_line(const char *buffer, char **line);
 void	reset_buffer(char *buffer);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-size_t	line_len(const char *s);
 void	clear_line(char **line);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlen(const char *s);
 
 #endif
