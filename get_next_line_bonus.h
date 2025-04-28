@@ -13,7 +13,6 @@
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <limits.h>
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
@@ -23,11 +22,12 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*read_file(int fd, char *buffer);
-void	extract_line(const char *buffer, char **line);
+char	*read_file(int fd, char **buffer);
+void	extract_line(char *buffer, char **line);
 void	reset_buffer(char *buffer);
 void	clear_line(char **line);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif
