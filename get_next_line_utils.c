@@ -53,7 +53,9 @@ void	reset_buffer(char *buffer)
 	size_t	line_len;
 
 	line_len = 0;
-	while (buffer[line_len] && (line_len == 0 || buffer[line_len - 1] != '\n'))
+	while (buffer[line_len] && buffer[line_len] != '\n')
+		line_len++;
+	if (buffer[line_len] == '\n')
 		line_len++;
 	if (line_len > 0)
 		ft_strlcpy(buffer, buffer + line_len, ft_strlen(buffer + line_len) + 1);
@@ -70,7 +72,9 @@ void	extract_line(const char *buffer, char **line)
 	else
 		old_len = 0;
 	add_len = 0;
-	while (buffer[add_len] && (add_len == 0 || buffer[add_len - 1] != '\n'))
+	while (buffer[add_len] && buffer[add_len] != '\n')
+		add_len++;
+	if (buffer[add_len] == '\n')
 		add_len++;
 	new_line = malloc(old_len + add_len + 1);
 	if (!new_line)

@@ -38,7 +38,7 @@ char	*get_next_line(int fd)
 		}
 		extract_line(buffer, &line);
 		reset_buffer(buffer);
-		if (line && line[ft_strlen(line) - 1] == '\n')
+		if (line && line[0] && line[ft_strlen(line) - 1] == '\n')
 			return (line);
 	}
 }
