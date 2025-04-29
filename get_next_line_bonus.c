@@ -82,8 +82,7 @@ char	*read_file(int fd, char **buffer)
 			{
 				if (bytes_read < 0)
 					clear_line(&line);
-				free(*buffer);
-				*buffer = NULL;
+				clear_line(buffer);
 				return (line);
 			}
 			(*buffer)[bytes_read] = '\0';
