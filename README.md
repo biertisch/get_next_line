@@ -3,9 +3,7 @@
 ![C](https://img.shields.io/badge/language-C-blue.svg)
 
 ### Overview
-C function that returns a line read from a file descriptor.
-
-This project is part of the 42 curriculum and designed to integrate with a custom [**libft**](https://github.com/biertisch/libft).
+C function that returns a line read from a file descriptor. Part of the 42 curriculum and designed to integrate with a custom [**libft**](https://github.com/biertisch/libft).
 
 ---
 ### Features
