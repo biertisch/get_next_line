@@ -13,14 +13,10 @@ C function that returns a line read from a file descriptor. Part of the 42 curri
 * Lines include the terminating `'\n'` character if present.
 * **Adjustable buffer size** via `-D BUFFER_SIZE=n`.
 * Supports **multiple file descriptors simultaneously** (bonus).
-
----
-### Tester
-
-Includes sample data and a simple shell script that tests:
-* Mandatory and bonus functions
-* Multiple files and standard input
-* Various buffer sizes (valid and invalid)
+* **Tester** (extra): sample data and a simple shell script that tests:
+	* Mandatory and bonus functions
+	* Multiple files and standard input
+	* Various buffer sizes (valid and invalid)
 
 ---
 ### Installation
@@ -45,7 +41,7 @@ char *line = get_next_line(fd);
 Integrated in [**libft**](https://github.com/biertisch/libft).
 
 
-To run **tester**:
+To run the tester:
 ```
 ./test/test.sh			# mandatory
 ./test/test.sh bonus	# bonus
