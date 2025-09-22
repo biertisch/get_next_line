@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beatde-a <beatde-a@student.42lisboa.c      +#+  +:+       +#+        */
+/*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:25:21 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/04/16 14:25:27 by beatde-a         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:48:02 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*read_file(int fd, char **buffer);
-void	extract_line(char *buffer, char **line);
-void	reset_buffer(char *buffer);
-void	clear_line(char **line);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *s, int c, size_t n);

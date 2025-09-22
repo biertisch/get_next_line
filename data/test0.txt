@@ -1,4 +1,0 @@
-0.0: line0
-0.1: line1
-0.2: line2
-0.3: line3

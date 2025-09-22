@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beatde-a <beatde-a@student.42lisboa.c      +#+  +:+       +#+        */
+/*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:25:21 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/04/16 14:25:27 by beatde-a         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:47:53 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//when defining the size of buffer, check whether OPEN_MAX works
-//if yes, include limits.h in header file
-
-#include <fcntl.h>
-#include <stdio.h>
 #include "get_next_line_bonus.h"
 
-void	clear_line(char **line)
+static void	clear_line(char **line)
 {
 	if (line && *line)
 	{
@@ -26,7 +21,7 @@ void	clear_line(char **line)
 	}
 }
 
-void	reset_buffer(char *buffer)
+static void	reset_buffer(char *buffer)
 {
 	size_t	line_len;
 
@@ -39,7 +34,7 @@ void	reset_buffer(char *buffer)
 		ft_strlcpy(buffer, buffer + line_len, ft_strlen(buffer + line_len) + 1);
 }
 
-void	extract_line(char *buffer, char **line)
+static void	extract_line(char *buffer, char **line)
 {
 	char	*new_line;
 	size_t	old_len;
@@ -67,7 +62,7 @@ void	extract_line(char *buffer, char **line)
 	*line = new_line;
 }
 
-char	*read_file(int fd, char **buffer)
+static char	*read_file(int fd, char **buffer, size_t size)
 {
 	char		*line;
 	ssize_t		bytes_read;
@@ -77,7 +72,7 @@ char	*read_file(int fd, char **buffer)
 	{
 		if (!(*buffer)[0])
 		{
-			bytes_read = read(fd, *buffer, BUFFER_SIZE);
+			bytes_read = read(fd, *buffer, size);
 			if (bytes_read <= 0)
 			{
 				if (bytes_read < 0)
@@ -97,69 +92,17 @@ char	*read_file(int fd, char **buffer)
 char	*get_next_line(int fd)
 {
 	static char	*buffer[1024];
+	size_t		size;
 
 	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
+	size = (size_t)BUFFER_SIZE;
 	if (!buffer[fd])
 	{
-		buffer[fd] = malloc(BUFFER_SIZE + 1);
+		buffer[fd] = malloc(size + 1);
 		if (!buffer[fd])
 			return (NULL);
-		ft_memset(buffer[fd], 0, BUFFER_SIZE + 1);
+		ft_memset(buffer[fd], 0, size + 1);
 	}
-	return (read_file(fd, &buffer[fd]));
+	return (read_file(fd, &buffer[fd], size));
 }
-
-/*void	run_test(int fd)
-{
-	char	*line;
-	
-	line = get_next_line(fd);
-	if (line)
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-}
-
-int	main(void)
-{
-	int	fd[5];
-	int	i;
-
-	fd[0] = open("data/test0.txt", O_RDONLY);
-	fd[1] = open("data/test1.txt", O_RDONLY);
-	fd[2] = open("data/test2.txt", O_RDONLY);
-	fd[3] = open("data/test3.txt", O_RDONLY);
-	fd[4] = open("data/test4.txt", O_RDONLY);
-			
-	i = 0;
-	while (i < 3)
-	{
-		run_test(fd[0]);
-		run_test(fd[1]);
-		run_test(fd[2]);
-		run_test(fd[3]);
-		run_test(fd[4]);
-		i++;
-	}
-
-	i = 0;
-	while (i < 5)
-	{
-		close(fd[i]);
-		i++;
-	}
-
-	return (0);
-}*/
-
-/*TEST
-BUFFER_SIZE = 42
-BUFFER_SIZE = 1
-BUFFER_SIZE = 10
-BUFFER_SIZE = 9999
-BUFFER_SIZE = 0
-BUFFER_SIZE = -1
-without -D flag
-*/
