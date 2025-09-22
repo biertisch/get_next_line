@@ -5,7 +5,7 @@
 ### Overview
 C function that returns a line read from a file descriptor.
 
-This project is part of the 42 curriculum and designed to integrate with a custom [**libft**](https://github.com/biertisch/libft.git).
+This project is part of the 42 curriculum and designed to integrate with a custom [**libft**](https://github.com/biertisch/libft).
 
 ---
 ### Features
@@ -44,7 +44,7 @@ int fd = open("myfile", O_RDNLY);
 char *line = get_next_line(fd);
 ```
 
-Integrated in [**libft**](https://github.com/biertisch/libft.git).
+Integrated in [**libft**](https://github.com/biertisch/libft).
 
 
 To run **tester**:
