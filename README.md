@@ -43,6 +43,7 @@ Integrated in [**libft**](https://github.com/biertisch/libft).
 
 To run the tester:
 ```
+chmod 755 test/test.sh
 ./test/test.sh			# mandatory
 ./test/test.sh bonus	# bonus
 ```
